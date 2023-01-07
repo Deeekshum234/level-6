@@ -28,7 +28,15 @@ describe("Todo test suite", () => {
     server = app.listen(4000, () => {});
     agent = request.agent(server);
   });
-  
+  afterAll(async () => {
+    try {
+      await db.sequelize.close();
+      server.close();
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
   test("Sign up", async () => {
     let res = await agent.get("/signup");
     const csrfToken = extractCsrfToken(res);
