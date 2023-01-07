@@ -130,12 +130,7 @@ describe("Todo test suite", () => {
       let res = await agent.get("/todos");
       csrfToken = extractCsrfToken(res);
 
-    await agent.post("/todos").send({
-      title: "Buy milk",
-      dueDate: new Date().toISOString(),
-      completed: false,
-      _csrf: csrfToken,
-    });
+   
 
     const groupedTodosResponse = await agent
       .get("/todos")
